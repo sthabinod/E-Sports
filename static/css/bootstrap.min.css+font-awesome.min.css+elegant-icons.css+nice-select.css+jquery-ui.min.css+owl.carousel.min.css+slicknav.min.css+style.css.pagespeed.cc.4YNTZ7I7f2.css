@@ -5368,13 +5368,7 @@ ol {
     text-align: center;
 }
 
-.pro-qty .qtybtn {
-    width: 35px;
-    font-size: 16px;
-    color: #6f6f6f;
-    cursor: pointer;
-    display: inline-block;
-}
+.pro-qty .qtybtn {}
 
 .product__details__tab {
     padding-top: 85px;

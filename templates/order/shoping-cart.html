@@ -19,7 +19,7 @@
   </div>
 </section>
 
-
+{% if cart %}
 <section class="shoping-cart spad">
   <div class="container">
     <div class="row">
@@ -45,9 +45,7 @@
 
                 <td class="shoping__cart__quantity">
                   <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="{{item.quantity}}">
-                    </div>
+                    <p class="lead"> {{item.quantity}} </p>
                   </div>
                 </td>
                 <td class="shoping__cart__total">
@@ -55,9 +53,10 @@
                 </td>
 
 
-                <td class="shoping__cart__item__close">
-                  <span class="icon_close"></span>
-                </td>
+                {% comment %} <td class="shoping__cart__item__close">
+                  <a href="{% url 'delete_cart' %}"><span class="icon_close"></span></a>
+
+                </td> {% endcomment %}
               </tr>
 
               {% endfor %}
@@ -70,8 +69,7 @@
       <div class="col-lg-12">
         <div class="shoping__cart__btns">
           <a href="{% url 'index' %}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-          <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-            Upadate Cart</a>
+
         </div>
       </div>
 
@@ -81,19 +79,36 @@
           <ul>
             <li>Total <span>$ {{sum}}</span></li>
           </ul>
+
           <a href="{% url 'checkout'%}" class="primary-btn">PROCEED TO CHECKOUT</a>
+
         </div>
       </div>
     </div>
   </div>
 </section>
-<script>
-  function cartData() {
-    data = localStorage.getItem('cart');
-    console.log("working");
-    console.log(data);
+{% else %}
+<section class="shoping-cart spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <p class="lead"> There are no products in the cart. </p> <br>
+      </div>
+      <div class="col-lg-6">
+        <a href="{% url 'index'%}" class="primary-btn">Add to cart now</a>
+      </div>
 
-  }
-</script>
+    </div>
+  </div>
+  </div>
+  {% endif %}
+  <script>
+    function cartData() {
+      data = localStorage.getItem('cart');
+      console.log("working");
+      console.log(data);
 
-{% endblock %}
+    }
+  </script>
+
+  {% endblock %}

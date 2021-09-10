@@ -4,7 +4,8 @@
 
 {% block 'content' %}
 
-<section class="breadcrumb-section set-bg" data-setbg="{% static 'img/breadcrumb.jpg' %}">
+
+<section class="" data-setbg="{% static 'img/breadcrumb.jpg' %}">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -70,7 +71,7 @@
               <li> {{item.product.name}} <span>${{item.product.price}}</span></li>
               {% endfor %}
             </ul>
-            <div class="checkout__order__total">Total <span>${{sum}}</span></div>
+            <div class="checkout__order__total">Total <span id="total">${{sum}}</span></div>
             <div id="paypal-button-container"></div>
             {% comment %}
             <div class="checkout__input__checkbox">
@@ -93,6 +94,7 @@
 </form>
 </div>
 </div>
+
 </section>
 
 {% endblock %}

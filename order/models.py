@@ -16,6 +16,11 @@ class Order(models.Model):
     complete = models.BooleanField(default=False)
     payment_status = models.BooleanField(default=False)
 
+    class Meta:
+
+        verbose_name = 'Order/Sales'
+        verbose_name_plural = 'Order/Sales'
+
 
 class Wishlist(models.Model):
     customer = models.ForeignKey(

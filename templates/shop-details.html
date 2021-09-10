@@ -39,6 +39,11 @@
           <p>{{details.description}}</p>
           <form action="{% url 'cart' details.id %}" method="POST">
             {% csrf_token %}
+
+
+            {% if details.quantity <= 0 %}
+            <p> This item is out of stock! </p>
+            {% else %}
             <div class="product__details__quantity">
               <div class="quantity">
                 <div class="pro-qty">
@@ -46,15 +51,17 @@
                 </div>
               </div>
             </div>
-            <button href="" type="submit" class="primary-btn addToCart cart">ADD TO CARD</button>
-
-
             <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+
+            <button href="" type="submit" class="primary-btn addToCart cart">ADD TO CARD</button>
+            {% endif %}
+
           </form>
           <ul>
             <li><b>Availability</b> <span>{{details.available}}</span></li>
             <li><b>Shipping</b> <span>{{details.shipping_day}}</span></li>
             <li><b>Weight</b> <span>{{details.weight}} kg</span></li>
+            <li><b>Available quantity</b> <span>{{details.quantity}} pcs</span></li>
 
           </ul>
         </div>

@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 # @unauthenticated_user
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password
 
 
 def signin(request):
@@ -38,9 +39,9 @@ def register(request):
 
             if password == confirm_password:
                 customer = User.objects.create(
-                    username=username, email=email)
-                # customer.set_password(self.cleaned_data["password"])
-                print("Hereeee......................")
+                    username=username, email=email, password=make_password(
+                        password))
+
                 customer.save()
                 return render(request, 'accounts/login.html')
             else:

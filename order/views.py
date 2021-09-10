@@ -62,8 +62,7 @@ def checkout(request):
             if cart.product.quantity >= 1 and cart_item_qty >= 0:
                 Order.objects.filter(id=cart.id).update(
                     order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
-                Product.objects.filter(id=cart.product.id).update(
-                    quantity=(cart.product.quantity-cart.quantity))
+
                 print("Order successful")
             else:
                 print(f'{cart.product.name} is out of stock.')
@@ -96,13 +95,24 @@ def add_to_cart(request, id):
     if request.method == 'POST':
         quantity = request.POST.get('quantity')
         user = User.objects.get(username=request.user.username)
+        print(user)
         product = Product.objects.get(id=id)
         customer = Customer.objects.get(user=user)
         print(product)
         print(customer)
+        cart_product = Order.objects.filter(
+            complete=False, order_status=False, customer=customer)
         obj_order_false = Order.objects.filter(product=product, complete=False)
         if Order.objects.filter(product=product).exists() and obj_order_false.exists():
-            print("product already exists")
+            for cart in cart_product:
+                cart_item_qty = cart.product.quantity-cart.quantity
+            print(cart_item_qty)
+            if cart.product.quantity >= 1 and cart_item_qty >= 0:
+                Product.objects.filter(id=cart.product.id).update(
+                    quantity=(cart.product.quantity-cart.quantity))
+                print("Add cart successful")
+            else:
+                print(f'{cart.product.name} is out of stock.')
         else:
             Order.objects.create(product=product, customer=customer,
                                  quantity=quantity, complete=False)
@@ -114,3 +124,7 @@ def add_to_cart(request, id):
 
 def payment(request):
     return render(request, "order/payment.html")
+
+
+def delete(request):
+    pass

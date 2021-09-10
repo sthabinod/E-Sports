@@ -5,7 +5,7 @@ from .models import Product, Category
 
 @admin.register(Product)
 class AdminProduct(admin.ModelAdmin):
-    list_display = ('name', 'description', 'price', 'date_added')
+    list_display = ('name', 'description', 'price', 'quantity', 'date_added')
     search_fields = ('name', 'price')
     # autocomplete_fields = ('email',)
     # raw_id_fields = ('email',)
