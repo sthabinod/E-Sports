@@ -48,3 +48,11 @@ def wishlist(request):
     except Exception as e:
         messages.error(request, "Wishlist error!")
         return render(request, "order/wishlist.html")
+
+
+def cat_details(request, id):
+    query = Product.objects.filter(category=id)
+    data = {
+        'products': query,
+    }
+    return render(request, "shop-grid.html", data)

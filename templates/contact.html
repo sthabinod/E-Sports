@@ -31,5 +31,7 @@
     </form>
   </div>
 </div>
-
+{% if messages %}<script>
+  alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+</script>{% endif %}
 {% endblock %}

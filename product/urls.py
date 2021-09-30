@@ -8,6 +8,7 @@ urlpatterns = [
     path('shop-details/<id>', views.shop_details, name="details"),
     path('all-goods', views.all_goods, name="all-goods"),
     path('like/<int:id>', views.like, name="like"),
+    path('cat_details/<int:id>', views.cat_details, name="category_details"),
     path('wishlist/', views.wishlist, name="wishlist"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,6 +4,7 @@ from product.models import Product
 from .models import Order
 from accounts.models import Customer
 from django.contrib.auth.models import User
+from django.contrib import messages
 import datetime
 
 
@@ -56,16 +57,10 @@ def checkout(request):
         cart_product = Order.objects.filter(
             complete=False, order_status=False, customer=customer)
 
-        for cart in cart_product:
-            cart_item_qty = cart.product.quantity-cart.quantity
-            print(cart_item_qty)
-            if cart.product.quantity >= 1 and cart_item_qty >= 0:
-                Order.objects.filter(id=cart.id).update(
-                    order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
-
-                print("Order successful")
-            else:
-                print(f'{cart.product.name} is out of stock.')
+        Order.objects.filter(id=cart.id).update(
+            order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
+        messages.success(request, "Successfully ordered!")
+        return redirect('my-order')
     return render(request, "order/checkout.html", data)
 
 
@@ -110,9 +105,12 @@ def add_to_cart(request, id):
             if cart.product.quantity >= 1 and cart_item_qty >= 0:
                 Product.objects.filter(id=cart.product.id).update(
                     quantity=(cart.product.quantity-cart.quantity))
-                print("Add cart successful")
+                messages.success(
+                    request, "Product is successfully added to cart!")
+                return redirect('cart-details')
             else:
-                print(f'{cart.product.name} is out of stock.')
+                messages.success(
+                    request, f'{cart.product.name} is out of stock.')
         else:
             Order.objects.create(product=product, customer=customer,
                                  quantity=quantity, complete=False)
@@ -126,5 +124,8 @@ def payment(request):
     return render(request, "order/payment.html")
 
 
-def delete(request):
-    pass
+def delete_order_item(request, id):
+    object_to_delete = Order.objects.get(id=id)
+    object_to_delete.delete()
+    messages.success(request, "Order deleted successfully!")
+    return redirect("my-order")

@@ -11,16 +11,16 @@ def index(request):
     three_days_a_head = datetime.datetime.now() - datetime.timedelta(days=3)
 
     information = Information.objects.get(id=1)
-    categories = Category.objects.all()[:12]
+    categories = Category.objects.all()
     products = Product.objects.all()
     latest_product = Product.objects.filter(
         date_added__gte=three_days_a_head)[:3]
 
     expensive_product = Product.objects.filter(
-        price__gte=300)[:3]
+        price__gte=50)[:3]
 
     cheapest_product = Product.objects.filter(
-        price__lte=100)[:3]
+        price__lte=20)[:3]
     wishlist_count = 0
     try:
         user = User.objects.get(username=request.user)

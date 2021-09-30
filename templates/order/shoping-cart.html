@@ -1,4 +1,4 @@
-{% extends 'base_home.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block 'content' %}
@@ -110,5 +110,7 @@
 
     }
   </script>
-
+  {% if messages %}<script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+  </script>{% endif %}
   {% endblock %}

@@ -27,14 +27,7 @@
       <div class="col-lg-6 col-md-6">
         <div class="product__details__text">
           <h3>{{details.name}}</h3>
-          <div class="product__details__rating">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star-half-o"></i>
-            <span>(18 reviews)</span>
-          </div>
+
           <div class="product__details__price">${{details.price}}</div>
           <p>{{details.description}}</p>
           <form action="{% url 'cart' details.id %}" method="POST">
@@ -44,6 +37,7 @@
             {% if details.quantity <= 0 %}
             <p> This item is out of stock! </p>
             {% else %}
+            {% if user.is_authenticated %}
             <div class="product__details__quantity">
               <div class="quantity">
                 <div class="pro-qty">
@@ -54,6 +48,9 @@
             <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
 
             <button href="" type="submit" class="primary-btn addToCart cart">ADD TO CARD</button>
+            {% else %}
+            <p> <a href="{% url 'login' %}"> Login now to add to cart! </a></p>
+            {% endif %}
             {% endif %}
 
           </form>

@@ -1,4 +1,4 @@
-{% extends 'base_home.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 
@@ -67,7 +67,7 @@
                 </td>
                 {% if item.order_status == False %}
                 <td class="shoping__cart__item__close">
-                  <span class="icon_close"></span>
+                  <a href="{% url 'delete_order_item' item.id %}"><span class="icon_close"></span> </a>
                 </td>
                 {% endif %}
               </tr>
@@ -87,10 +87,10 @@
 <script>
   function cartData() {
     data = localStorage.getItem('cart');
-    console.log("working");
+    console.log(" working");
     console.log(data);
-
   }
-</script>
-
+</script> {% if messages %}<script>
+  alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+</script>{% endif %}
 {% endblock %}

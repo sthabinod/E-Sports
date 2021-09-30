@@ -55,15 +55,22 @@
                             </div>
                             <div class="header__top__right__language">
                                 <img src="img/xlanguage.png.pagespeed.ic.x-r7SQqGJF.jpg" alt="">
+                                {% if user.is_authenticated %}
                                 <div>{{request.user}}</div>
                                 <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">English</a></li>
-                                </ul>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
+
                             </div>
+                            {% if user.is_authenticated %} <div class="header__top__right__auth">
+                                <a href="{% url 'logout' %}"><i class="fa fa-user"></i> Logout</a>
+                            </div>
+                            {% else %}
                             <div class="header__top__right__auth">
                                 <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -79,7 +86,8 @@
         <div class="row">
             <div class="col-lg-3">
                 <div style="margin-left:100px;" class="header__logo">
-                    <a href="{% url 'index' %}"><img src="{% static 'img/xlogo.png.pagespeed.ic.ap5icp--OT.png' %}"
+                    <a href="{% url 'index' %}"><img height="50"
+                            src="https://easymartonline.com/storage/media/qz5y7g3Qh4ty7CZ1Sy9J3sMxgsDK29XP3tZk7MPO.png"
                             alt=""></a>
                 </div>
             </div>
@@ -88,25 +96,20 @@
                     <ul>
                         <li class="active"><a href="{% url 'index' %}">Home</a></li>
                         <li><a href="{% url 'all-goods' %}">Shop</a></li>
+                        {% if user.is_authenticated %}
                         <li><a href="#">Orders</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="{% url 'cart-details' %}">Shoping Cart</a></li>
                                 <li><a href="{% url 'my-order' %}">My orders</a></li>
                             </ul>
                         </li>
+                        {% endif %}
                         <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
-                <div class="header__cart">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-heart"></i> <span>{{wishlist_count}}</span></a></li>
-                        <li><a href="{% url 'cart-details' %}"><i class="fa fa-shopping-bag"></i> <span
-                                    id="cartNumber">0</span></a>
-                        </li>
-                    </ul>
-                </div>
+
             </div>
         </div>
         <div class="humberger__open">
@@ -163,45 +166,11 @@
 
 
 </body>
-<script
-    src="https://www.paypal.com/sdk/js?client-id=AQYt5mD9leevCjjOYonVy44wdxIf41ThD4IXIqDypA06YKT3ioHi0WRFDhvA8JHaxJroT27AGvQGjfT7&currency=USD&disable-funding=credit">
-</script>
-
-<script>
-    // Render the PayPal button into #paypal-button-container
-    paypal.Buttons({
-
-        // Set up the transaction
-        createOrder: function (data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: '88.44'
-                    }
-                }]
-            });
-        },
-
-        // Finalize the transaction
-        onApprove: function (data, actions) {
-            return actions.order.capture().then(function (orderData) {
-                // Successful capture! For demo purposes:
-                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                var transaction = orderData.purchase_units[0].payments.captures[0];
-                alert('Transaction ' + transaction.status + ': ' + transaction.id +
-                    '\n\nSee console for all available details');
-
-                // Replace the above to show a success message within this page, e.g.
-                // const element = document.getElementById('paypal-button-container');
-                // element.innerHTML = '';
-                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                // Or go to another URL:  actions.redirect('thank_you.html');
-            });
-        }
 
 
-    }).render('#paypal-button-container');
-</script>
+{% if messages %}<script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+</script>{% endif %}
 <!-- Mirrored from preview.colorlib.com/theme/ogani/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Aug 2021 07:33:54 GMT -->
 
 </html>
