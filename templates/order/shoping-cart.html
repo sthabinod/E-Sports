@@ -52,7 +52,9 @@
                   $ {{item.product.price}}
                 </td>
 
-
+                <td class="shoping__cart__item__close">
+                  <a href="{% url 'delete_order_item' item.id %}"><span class="icon_close"></span> </a>
+                </td>
                 {% comment %} <td class="shoping__cart__item__close">
                   <a href="{% url 'delete_cart' %}"><span class="icon_close"></span></a>
 

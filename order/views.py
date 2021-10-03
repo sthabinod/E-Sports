@@ -56,10 +56,11 @@ def checkout(request):
         complete = True
         cart_product = Order.objects.filter(
             complete=False, order_status=False, customer=customer)
-
-        Order.objects.filter(id=cart.id).update(
-            order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
+        for cart in cart_product:
+            Order.objects.filter(id=cart.id).update(
+                order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
         messages.success(request, "Successfully ordered!")
+
         return redirect('my-order')
     return render(request, "order/checkout.html", data)
 
@@ -93,8 +94,7 @@ def add_to_cart(request, id):
         print(user)
         product = Product.objects.get(id=id)
         customer = Customer.objects.get(user=user)
-        print(product)
-        print(customer)
+
         cart_product = Order.objects.filter(
             complete=False, order_status=False, customer=customer)
         obj_order_false = Order.objects.filter(product=product, complete=False)

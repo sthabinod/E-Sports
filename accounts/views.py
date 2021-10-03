@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import make_password
 
+from .models import Customer
+
 
 def signin(request):
     try:
@@ -41,8 +43,9 @@ def register(request):
                 customer = User.objects.create(
                     username=username, email=email, password=make_password(
                         password))
-
+                customer_add = Customer.objects.create(user=customer)
                 customer.save()
+                customer_add.save()
                 return render(request, 'accounts/login.html')
             else:
                 return redirect('register')
