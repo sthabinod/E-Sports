@@ -1,11 +1,12 @@
 from django.db import models
 from product.models import Product
 from accounts.models import Customer
+from django.contrib.auth.models import User
 
 
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField()
     street = models.CharField(max_length=200, null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
@@ -17,14 +18,13 @@ class Order(models.Model):
     payment_status = models.BooleanField(default=False)
 
     class Meta:
-
-        verbose_name = 'Order/Sales'
-        verbose_name_plural = 'Order/Sales'
+        verbose_name = 'Sales/Order'
+        verbose_name_plural = 'Sales/Order'
 
 
 class Wishlist(models.Model):
     customer = models.ForeignKey(
-        Customer, related_name='products', on_delete=models.CASCADE)
+        User, related_name='products', on_delete=models.CASCADE)
 
     product = models.ForeignKey(
         Product, related_name='products', on_delete=models.CASCADE)

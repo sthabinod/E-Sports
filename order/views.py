@@ -12,8 +12,7 @@ def cart_details(request):
     try:
 
         user = User.objects.get(username=request.user)
-        customer = Customer.objects.get(user=user)
-        cart_product = Order.objects.filter(complete=False, customer=customer)
+        cart_product = Order.objects.filter(complete=False, user=user)
         sum = 0
         total = []
         for cart in cart_product:
@@ -34,9 +33,8 @@ def cart_details(request):
 def checkout(request):
 
     user = User.objects.get(username=request.user)
-    customer = Customer.objects.get(user=user)
     cart_product = Order.objects.filter(
-        complete=False, order_status=False, customer=customer)
+        complete=False, order_status=False, user=user)
     sum = 0
     total = []
     for cart in cart_product:
@@ -55,7 +53,7 @@ def checkout(request):
         phone = request.POST.get('phone')
         complete = True
         cart_product = Order.objects.filter(
-            complete=False, order_status=False, customer=customer)
+            complete=False, order_status=False, user=user)
         for cart in cart_product:
             Order.objects.filter(id=cart.id).update(
                 order_date=date, street=street, city=city, postal_code=postal_code, phone=phone, complete=complete)
@@ -68,9 +66,8 @@ def checkout(request):
 def my_order(request):
     try:
         user = User.objects.get(username=request.user)
-        customer = Customer.objects.get(user=user)
         order_product = Order.objects.filter(
-            complete=True, customer=customer)
+            complete=True, user=user)
 
         sum = 0
         for order in order_product:
@@ -93,10 +90,9 @@ def add_to_cart(request, id):
         user = User.objects.get(username=request.user.username)
         print(user)
         product = Product.objects.get(id=id)
-        customer = Customer.objects.get(user=user)
 
         cart_product = Order.objects.filter(
-            complete=False, order_status=False, customer=customer)
+            complete=False, order_status=False, user=user)
         obj_order_false = Order.objects.filter(product=product, complete=False)
         if Order.objects.filter(product=product).exists() and obj_order_false.exists():
             for cart in cart_product:
@@ -112,7 +108,7 @@ def add_to_cart(request, id):
                 messages.success(
                     request, f'{cart.product.name} is out of stock.')
         else:
-            Order.objects.create(product=product, customer=customer,
+            Order.objects.create(product=product, user=user,
                                  quantity=quantity, complete=False)
 
     else:

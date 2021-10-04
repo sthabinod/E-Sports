@@ -28,9 +28,8 @@ def all_goods(request):
 def like(request, id):
     try:
         user = User.objects.get(username=request.user.username)
-        customer = Customer.objects.get(user=user)
         product = Product.objects.get(id=id)
-        query = Wishlist.objects.create(customer=customer, product=product)
+        query = Wishlist.objects.create(customer=user, product=product)
         query.save()
         messages.success(request, "Product has been added to wishlist.")
         return redirect("index")
@@ -42,8 +41,8 @@ def like(request, id):
 def wishlist(request):
     try:
         user = User.objects.get(username=request.user.username)
-        customer = Customer.objects.get(user=user)
-        query = Wishlist.objects.filter(customer=customer)
+
+        query = Wishlist.objects.filter(customer=user)
         return render(request, "order/wishlist.html", {'wishlist': query})
     except Exception as e:
         messages.error(request, "Wishlist error!")
