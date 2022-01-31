@@ -1,0 +1,63 @@
+<!-- Start Header Area -->
+{% load static %}
+<header class="header_area sticky-header">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light main_box">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand logo_h" href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{% url 'all-goods' %}">Shop Category</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'all-goods' %}">All Products</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'cart-details' %}" class="cart"><span class="ti-shopping-cart"></span></a></li>
+                        <li class="nav-item"><a href="{% url 'checkout' %}" class="chekcout"><span class="ti-bag">&nbsp;Checkout</span></a></li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="chekcout"><span class="ti-arrow-right">&nbsp;Logout</span></a></li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="chekcout"><span class="ti-arrow-sd">&nbsp;{{request.user}}</span></a></li>
+                        {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}" class="cart"><span class="ti-skj">&nbsp;Login</span></a></li>
+                        <li class="nav-item"><a href="{% url 'register' %}" class="cart"><span class="ti-bagd">&nbsp;Register</span></a></li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="search_input" id="search_input_box">
+        <div class="container">
+            <form class="d-flex justify-content-between">
+                <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                <button type="submit" class="btn"></button>
+                <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+            </form>
+        </div>
+    </div>
+</header>
+<!-- End Header Area -->

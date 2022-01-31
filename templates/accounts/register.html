@@ -1,71 +1,44 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block 'content' %}
-{% for message in messages %}
-{{message}}
-{% endfor %}
-<div class="contact-form spad">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="contact__form__title">
-          <h2>Register</h2>
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+                    <div class="hover">
+                        <h4>Already have account?</h4>
+                        <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+                        <a class="primary-btn" href="{% url 'login' %}">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Enter Registration Details</h3>
+                    <form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Addresss" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="primary-btn">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <form action="{% url 'register' %}" method="post">
-          {% csrf_token %}
-          <div class="row">
-
-            <div class="col-lg-12 col-md-12">
-              <input type="text" name="username" placeholder="Username">
-            </div>
-
-          </div>
-
-          <div class="row">
-
-            <div class="col-lg-12 col-md-12 text-center">
-              <input type="email" name="email" placeholder="Email address">
-            </div>
-
-          </div>
-
-
-          <div class="row">
-
-            <div class="col-lg-12 col-md-12 text-center">
-              <input name="password" type="password" placeholder="Password">
-            </div>
-
-          </div>
-
-          <div class="row">
-
-            <div class="col-lg-12 col-md-12 text-center">
-              <input name="confirm_password" type="password" placeholder="Confirim Password">
-            </div>
-
-          </div>
-
-
-          <div style="margin:10px;" class="col-lg-12 col-md-12 text-center">
-            <a href="{% url 'login' %}" style="color:green;">Already have an account?</a>
-          </div>
-          <div class="col-lg-12 ">
-            <button style="width:105%;margin-left:-10px;" type="submit" class="site-btn">Register</button>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-6">
-        <img style="height: 600px;margin-top:-90px;"
-          src="https://cdni.iconscout.com/illustration/premium/thumb/sign-up-page-1886582-1598253.png" alt="">
-      </div>
-    </div>
-
-  </div>
-</div>
-
+</section>
+<!--================End Login Box Area =================-->
 {% endblock %}

@@ -6,7 +6,7 @@ from django.core.files import File
 
 class Category(models.Model):
     image = models.ImageField(
-        upload_to='uploads/category', blank=True, null=True)
+        upload_to='media/category', blank=True, null=True)
     name = models.CharField(max_length=255)
 
     class Meta:
@@ -34,8 +34,8 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=400, blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    image = models.ImageField(upload_to='uploads', blank=True, null=True)
-    thumbnail = models.ImageField(upload_to='uploads', blank=True, null=True)
+    image = models.ImageField(upload_to='media/products', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='media/products', blank=True, null=True)
     available = models.BooleanField(default=True)
     shipping_day = models.IntegerField(default=3)
     quantity = models.IntegerField(default=1)

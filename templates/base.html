@@ -1,176 +1,54 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="zxx">
-
-<!-- Mirrored from preview.colorlib.com/theme/ogani/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Aug 2021 07:32:52 GMT -->
+<html lang="zxx" class="no-js">
 
 <head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
     <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&amp;display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
-    <link rel="stylesheet"
-        href="{% static 'css/bootstrap.min.css+font-awesome.min.css+elegant-icons.css+nice-select.css+jquery-ui.min.css+owl.carousel.min.css+slicknav.min.css+style.css.pagespeed.cc.4YNTZ7I7f2.css' %}"
-        type="text/css" />
+    <!-- Site Title -->
+    <title>Karma Shop</title>
+    <!--
+		CSS
+		============================================= -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
-<body onload="cartData();">
-
-    <div id=" preloder">
-        <div class="loader"></div>
-    </div>
-
-    <header style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;"
-        class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> <a
-                                        href="https://preview.colorlib.com/cdn-cgi/l/email-protection"
-                                        class="__cf_email__">easymart@gmail.com
-                                    </a></li>
-                                <li>Free Shipping for all Order of $50</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="img/xlanguage.png.pagespeed.ic.x-r7SQqGJF.jpg" alt="">
-                                {% if user.is_authenticated %}
-                                <div>{{request.user}}</div>
-                                <span class="arrow_carrot-down"></span>
-                                {% else %}
-                                <div></div>
-                                {% endif %}
-
-                            </div>
-                            {% if user.is_authenticated %} <div class="header__top__right__auth">
-                                <a href="{% url 'logout' %}"><i class="fa fa-user"></i> Logout</a>
-                            </div>
-                            {% else %}
-                            <div class="header__top__right__auth">
-                                <a href="{% url 'login' %}"><i class="fa fa-user"></i> Login</a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <ul>
-            <li id="">
-
-            </li>
-        </ul <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div style="margin-left:100px;" class="header__logo">
-                    <a href="{% url 'index' %}"><img height="50"
-                            src="https://easymartonline.com/storage/media/qz5y7g3Qh4ty7CZ1Sy9J3sMxgsDK29XP3tZk7MPO.png"
-                            alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <nav class="header__menu">
-                    <ul>
-                        <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'all-goods' %}">Shop</a></li>
-                        {% if user.is_authenticated %}
-                        <li><a href="#">Orders</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'cart-details' %}">Shoping Cart</a></li>
-                                <li><a href="{% url 'my-order' %}">My orders</a></li>
-                            </ul>
-                        </li>
-                        {% endif %}
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-
-            </div>
-        </div>
-        <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-        </div>
-        </div>
-    </header>
-    {% block 'content' %}
-
-    {% endblock %}
-
-    <script>
-        var cart = localStorage.getItem('cart');
-
-        document.getElementById("cartNumber").innerHTML = Object.keys(cart).length;
-    </script>
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}">
-    </script>
-    <script src="{% static 'js/bootstrap.min.js%2bjquery.nice-select.min.js.pagespeed.jc.08NHUfMhux.js' %}">
-    </script>
-    <script>
-        eval(mod_pagespeed_ND6iIrfFHB);
-    </script>
-    <script>
-        eval(mod_pagespeed_2CR7bSFHcL);
-    </script>
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/mixitup.min.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"> </script>
-    <script src="{% static 'js/main.js' %}"> </script>
-    <script src="{% static 'js/work/main.js' %}"> </script>
-    <script src="{% static 'js/work/checkout.js' %}"> </script>
-    <script src="{% static 'js/work/viewcart.js' %}"> </script>
-    <script src="{% static 'js/extension/choices.js' %}"> </script>
-    <script src="{% static 'js/extension/custom-materialize.js' %}"> </script>
-    <script src="{% static 'js/extension/flatpickr.js' %}"> </script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
-    </script>
-    <script defer src="../../../static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon='{"rayId":"678ddabc1ce5a755","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.7.0","si":10}'>
-    </script>
-
-
+<body>
+    {% include 'include/header.html' %} {% block content %} {% endblock %} {% include 'include/footer.html' %}
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'js/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="{% static 'js/gmaps.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
-
-
-{% if messages %}<script>
-    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
-</script>{% endif %}
-<!-- Mirrored from preview.colorlib.com/theme/ogani/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Aug 2021 07:33:54 GMT -->
 
 </html>

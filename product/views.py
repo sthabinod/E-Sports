@@ -14,15 +14,17 @@ def shop_details(request, id):
         'details': query,
         'related': related,
     }
-    return render(request, "shop-details.html", data)
+    return render(request, "pages/single-product.html", data)
 
 
 def all_goods(request):
+    categories = Category.objects.all()
     query = Product.objects.all()
     data = {
         'products': query,
+        'categories':categories
     }
-    return render(request, "shop-grid.html", data)
+    return render(request, "pages/category.html", data)
 
 
 def like(request, id):

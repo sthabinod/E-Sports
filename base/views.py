@@ -13,8 +13,7 @@ def index(request):
     information = Information.objects.get(id=1)
     categories = Category.objects.all()
     products = Product.objects.all()
-    latest_product = Product.objects.filter(
-        date_added__gte=three_days_a_head)[:3]
+    latest_product = Product.objects.all()
 
     expensive_product = Product.objects.filter(
         price__gte=50)[:3]
@@ -62,7 +61,7 @@ def index(request):
     else:
         print("No POST REQUEST..")
 
-    return render(request, 'index.html', data)
+    return render(request, 'pages/index.html', data)
 
 
 def contact(request):

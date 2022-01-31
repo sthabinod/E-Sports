@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 from io import BytesIO
 from PIL import Image
@@ -13,6 +14,7 @@ class Information(models.Model):
     about = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True)
+    description = models.TextField()
 
     class Meta:
         managed = True
