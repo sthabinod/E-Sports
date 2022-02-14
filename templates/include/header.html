@@ -22,20 +22,14 @@
                                 <li class="nav-item"><a class="nav-link" href="{% url 'all-goods' %}">All Products</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a href="{% url 'cart-details' %}" class="cart"><span class="ti-shopping-cart"></span></a></li>
-                        <li class="nav-item"><a href="{% url 'checkout' %}" class="chekcout"><span class="ti-bag">&nbsp;Checkout</span></a></li>
+                        <li class="nav-item"><a href="{% url 'my-order' %}" class="chekcout"><span class="ti-bag">&nbsp;My Orders</span></a></li>
                         <li class="nav-item"><a href="{% url 'logout' %}" class="chekcout"><span class="ti-arrow-right">&nbsp;Logout</span></a></li>
                         <li class="nav-item"><a href="{% url 'logout' %}" class="chekcout"><span class="ti-arrow-sd">&nbsp;{{request.user}}</span></a></li>
                         {% else %}

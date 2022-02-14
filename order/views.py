@@ -78,7 +78,7 @@ def my_order(request):
 
         }
 
-        return render(request, "order/my-order.html", data)
+        return render(request, "order/tracking.html", data)
     except Exception as e:
         # No such order found
         return render(request, "order/my-order.html")
@@ -94,6 +94,7 @@ def add_to_cart(request, id):
         cart_product = Order.objects.filter(
             complete=False, order_status=False, user=user)
         obj_order_false = Order.objects.filter(product=product, complete=False)
+        print("here")
         if Order.objects.filter(product=product).exists() and obj_order_false.exists():
             for cart in cart_product:
                 cart_item_qty = cart.product.quantity-cart.quantity
@@ -110,6 +111,10 @@ def add_to_cart(request, id):
         else:
             Order.objects.create(product=product, user=user,
                                  quantity=quantity, complete=False)
+            messages.success(
+                    request, "Product is successfully added to cart!")
+            return redirect('cart-details')
+
 
     else:
         print("NO POST METHODDDDDDDD")

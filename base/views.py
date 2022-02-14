@@ -65,4 +65,5 @@ def index(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    
+    return render(request, 'pages/contact.html')
