@@ -20,6 +20,8 @@ def signin(request):
                 messages.error(request, "User not found or not activated!")
                 return render(request, 'accounts/login.html')
             else:
+                messages.success(
+                request, "Logged in!")
                 login(request, user)
                 return redirect('index')
         else:
@@ -46,8 +48,12 @@ def register(request):
                 customer_add = Customer.objects.create(user=customer)
                 customer.save()
                 customer_add.save()
+                messages.success(
+                request, "User created successfully!")
                 return render(request, 'accounts/login.html')
             else:
+                messages.error(
+                request, "Password does not match eachother!")
                 return redirect('register')
         else:
             print("This is not POST method")
@@ -59,4 +65,6 @@ def register(request):
 
 def logout_user(request):
     logout(request)
+    messages.success(
+                request, "Logged out successfully!")
     return redirect('login')

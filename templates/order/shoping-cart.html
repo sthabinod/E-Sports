@@ -2,99 +2,126 @@
 
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Shopping Cart</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Cart</a>
-                </nav>
-            </div>
-        </div>
+  <div class="container">
+    <div
+      class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end"
+    >
+      <div class="col-first">
+        <h1>Shopping Cart</h1>
+        <nav class="d-flex align-items-center">
+          <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+          <a href="category.html">Cart</a>
+        </nav>
+      </div>
     </div>
+  </div>
 </section>
 <!-- End Banner Area -->
 
 <!--================Cart Area =================-->
+{% if cart %}
 <section class="cart_area">
-    <div class="container">
-        <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cart_product in cart %}
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="{{cart_product.image.url}}" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>{{cart_product.product.name}}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>${{cart_product.product.price}}</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="{{cart_product.product.quantity}}" title="Quantity:" class="input-text qty">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>${{sum}}</h5>
-                            </td>
-                        </tr>
-                        {% endfor %}
+  <div class="container">
+    <div class="cart_inner">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cart_product in cart %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="d-flex">
+                    <img src="{{cart_product.image.url}}" alt="" />
+                  </div>
+                  <div class="media-body">
+                    <p>{{cart_product.product.name}}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <h5>${{cart_product.product.price}}</h5>
+              </td>
+              <td>
+                <div class="product_count">
+                  {{cart_product.quantity}}
+                  
+                  
+                  </button>
+                </div>
+              </td>
 
-                        <tr>
-                            <td>
+            
+              <td>
+              <a style="color:red;" href="{% url 'delete_order_item' cart_product.id %}" >Cancel </a>
+              </td>
+              
+            </tr>
+            {% endfor %}
 
-                            </td>
-                            <td>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                <h5>Total</h5>
+              </td>
+              <td>
+                <h5>${{sum}}</h5>
+              </td>
+            
+           
+             
+            </tr>
+             
+            <tr class="out_button_area">
+            
+              <td></td>
+              <td></td>
+              <td></td>
+           
+              <td>
 
-                            </td>
-                            <td>
-                                <h5>Subtotal</h5>
-                            </td>
-                            <td>
-                                <h5>${{total}}</h5>
-                            </td>
-                        </tr>
-                        <tr class="out_button_area">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="{% url 'index' %}">Continue Shopping</a>
-                                    <a class="primary-btn" href="{% url 'checkout' %}">Proceed to checkout</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                <div class="checkout_btn_inner d-flex align-items-center">
+                  <a class="gray_btn" href="{% url 'index' %}"
+                    >Continue Shopping</a
+                  >
+                  <a class="primary-btn" href="{% url 'checkout' %}"
+                    >Proceed to checkout</a
+                  >
+                </div>
+              </td>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </section>
+{% else %}
+<section class="cart_area">
+  <div class="container">
+    <div class="cart_inner">
+        <p class="lead"> There are no products in the cart. </p> <br>
+      <div class="col-lg-6">
+        <a href="{% url 'all-goods'%}" class="primary-btn">Add to cart now</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+  {% endif %}
+  {% if messages %}<script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+  </script>{% endif %}
 <!--================End Cart Area =================-->
+{% if messages %}<script>
+  alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+</script>{% endif %}
 {% endblock %}

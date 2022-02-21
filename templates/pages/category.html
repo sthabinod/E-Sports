@@ -2,103 +2,105 @@
 
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Shop Category page</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Fashon Category</a>
-                </nav>
-            </div>
-        </div>
+  <div class="container">
+    <div
+      class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end"
+    >
+      <div class="col-first">
+        <h1>Shop Category page</h1>
+        <nav class="d-flex align-items-center">
+          <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+          <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+          <a href="category.html">Fashon Category</a>
+        </nav>
+      </div>
     </div>
+  </div>
 </section>
 <!-- End Banner Area -->
 <div class="container">
-    <div class="row">
-        <div class="col-xl-3 col-lg-4 col-md-5">
-            <div class="sidebar-categories">
-                <div class="head">Browse Categories</div>
-                <ul class="main-categories">
-                    {% for category in categories %}
-                    <li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span>{{category}}<span class="number">({{category.products.count}})</span></a>
-
-                    </li>
-                    {% endfor %}
-
-
-                </ul>
-            </div>
-            <div class="sidebar-filter mt-50">
-                <div class="top-filter-head">Product Filters</div>
-
-                <div class="common-filter">
-                    <div class="head">Price</div>
-                    <div class="price-range-area">
-                        <div id="price-range"></div>
-                        <div class="value-wrapper d-flex">
-                            <div class="price">Price:</div>
-                            <span>$</span>
-                            <div id="lower-value"></div>
-                            <div class="to">to</div>
-                            <span>$</span>
-                            <div id="upper-value"></div>
-                        </div>
-                        <button class="btn btn-secondary" style="width: 100%;margin-top:30px;">Filter</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-9 col-lg-8 col-md-7">
-            <section class="lattest-product-area pb-40 category-list">
-                <div class="row">
-                    <!-- single product -->
-
-                    {% for product in products %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-product">
-                            <img class="img-fluid" src="{{product.image.url}}" alt="">
-                            <div class="product-details">
-                                <h6>{{product.name}}</h6>
-                                <div class="price">
-                                    <h6>${{product.price}}</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-
-                                    <a href="{% url 'cart' product.id %}" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">add to bag</p>
-                                    </a>
-                                    <a href="{% url 'like' product.id %}" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">Wishlist</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">compare</p>
-                                    </a>
-                                    <a href="{% url 'details' product.id %}" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">view more</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-
-                </div>
-            </section>
-            <!-- End Best Seller -->
-            <!-- Start Filter Bar -->
-
-        </div>
+  <div class="row">
+    <div class="col-xl-3 col-lg-4 col-md-5">
+      <div class="sidebar-categories">
+        <div class="head">Browse Categories</div>
+        <ul class="main-categories">
+          {% for category in categories %}
+          <li class="main-nav-list">
+            <a
+              data-toggle="collapse"
+              href="#fruitsVegetable"
+              aria-expanded="false"
+              aria-controls="fruitsVegetable"
+              ><span class="lnr lnr-arrow-right"></span>{{category}}<span
+                class="number"
+                >({{category.products.count}})</span
+              ></a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="sidebar-filter mt-50"></div>
     </div>
-</div>
+    <div class="col-xl-9 col-lg-8 col-md-7">
+      <section class="lattest-product-area pb-40 category-list">
+        <div class="row">
+          <!-- single product -->
+          {% if searches %} {% for product in searches %}
+          <div class="col-lg-4 col-md-6">
+            <div class="single-product">
+              <img class="img-fluid" src="{{product.image.url}}" alt="" />
+              <div class="product-details">
+                <h6>{{product.name}}</h6>
+                <div class="price">
+                  <h6>${{product.price}}</h6>
+                </div>
+                <div class="prd-bottom">
+               
+                  <a href="{% url 'details' product.id %}" class="social-info">
+                    <span class="lnr lnr-move"></span>
+                    <p class="hover-text">view more</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="col-lg-4 col-md-6">
+            <div class="single-product">
+              <p>No products found!</p>
+            </div>
+          </div>
+          {% else %} {% endif %} {% if products %} {% for product in products %}
+          <div class="col-lg-4 col-md-6">
+            <div class="single-product">
+              <img class="img-fluid" src="{{product.image.url}}" alt="" />
+              <div class="product-details">
+                <h6>{{product.name}}</h6>
+                <div class="price">
+                  <h6>${{product.price}}</h6>
+                </div>
+                <div class="prd-bottom">
+               
 
-{% endblock %}
+                  <a href="{% url 'details' product.id %}" class="social-info">
+                    <span class="lnr lnr-move"></span>
+                    <p class="hover-text">view more</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+      </section>
+      <!-- End Best Seller -->
+      <!-- Start Filter Bar -->
+    </div>
+  </div>
+</div>
+{% if messages %}
+<script>
+  alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+</script>
+{% endif %} {% endblock %}

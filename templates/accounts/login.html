@@ -33,7 +33,6 @@
                         </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="primary-btn">Log In</button>
-                            <a href="#">Forgot Password?</a>
                         </div>
                     </form>
                 </div>
@@ -41,5 +40,8 @@
         </div>
     </div>
 </section>
+{% if messages %}<script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+  </script>{% endif %}
 <!--================End Login Box Area =================-->
 {% endblock %}

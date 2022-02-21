@@ -7,6 +7,6 @@ class AdminInformation(admin.ModelAdmin):
     pass
 
 
-admin.site.site_header = "Easy mart"
-admin.site.site_title = "Easy Mart"
-admin.site.index_title = "Easy Mart Admin"
+admin.site.site_header = "E-sports Shop"
+admin.site.site_title = "E-Sports Shop"
+admin.site.index_title = "E-Sports Shop"

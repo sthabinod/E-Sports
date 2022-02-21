@@ -1,3 +1,4 @@
+from re import sub
 from django.shortcuts import render
 from product.models import Category, Product
 import datetime
@@ -5,7 +6,8 @@ from .models import Information
 from accounts.models import Customer
 from django.contrib.auth.models import User
 from order.models import Order, Wishlist
-
+from django.core.mail import send_mail
+from django.contrib import messages
 
 def index(request):
     three_days_a_head = datetime.datetime.now() - datetime.timedelta(days=3)
@@ -65,5 +67,19 @@ def index(request):
 
 
 def contact(request):
-    
-    return render(request, 'pages/contact.html')
+    information = Information.objects.get(id=1)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email_address = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        print(name, email_address, subject, message)
+        send_message = f' First Name: {name} \n Email Addresss: {email_address} \n Number: {subject} \n Message: {message}'
+        send_mail(
+            'Contact',
+            send_message,
+            'stha.binod1000@gmail.com',
+            [email_address],
+        )
+        messages.success(request, "We will contact you soon!")
+    return render(request, 'pages/contact.html', {'information':information})

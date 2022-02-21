@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from order.models import Wishlist
 from accounts.models import Customer
+from base.models import Information
 
 
 def shop_details(request, id):
@@ -18,13 +19,32 @@ def shop_details(request, id):
 
 
 def all_goods(request):
+    information = Information.objects.all()
     categories = Category.objects.all()
     query = Product.objects.all()
     data = {
         'products': query,
-        'categories':categories
+        'categories':categories,
+        'information': information,
     }
     return render(request, "pages/category.html", data)
+
+
+
+def search(request):
+    search_content = None
+    information = Information.objects.all()
+    if request.method == 'POST':
+        search = request.POST.get("search")
+        print(search)
+        categories = Category.objects.all()
+        search_content = Product.objects.filter(name__icontains=search)
+    data = {
+        'searches':search_content,
+          'categories':categories,
+         'information':information
+    }
+    return render(request, "pages/category.html",data)
 
 
 def like(request, id):

@@ -18,18 +18,19 @@
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Enter Registration Details</h3>
-                    <form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" action="{% url 'register' %}" method="POST" id="contactForm">
+                        {% csrf_token %}
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            <input type="text" class="form-control" required id="username" name="username" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email Addresss" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
+                            <input type="email" class="form-control" required id="email" name="email" placeholder="Email Addresss" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" required id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
+                            <input type="password" class="form-control" required id="confirm_password" name="confirm_password" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'">
                         </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="primary-btn">Register</button>
@@ -40,5 +41,8 @@
         </div>
     </div>
 </section>
+{% if messages %}<script>
+    alert("{% for message in messages %}{{ message }}\n{% endfor %}");
+  </script>{% endif %}
 <!--================End Login Box Area =================-->
 {% endblock %}

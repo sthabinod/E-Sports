@@ -19,6 +19,8 @@ def cart_details(request):
             sum = (cart.product.price*cart.quantity)+sum
             amt = cart.product.price*cart.quantity
             total.append(amt)
+        print(sum)
+        print(total)
         data = {
             'cart': cart_product,
             'sum': sum,
@@ -28,7 +30,6 @@ def cart_details(request):
         return render(request, "order/shoping-cart.html", data)
     except Exception as e:
         return render(request, "order/shoping-cart.html")
-
 
 def checkout(request):
 
@@ -60,28 +61,27 @@ def checkout(request):
         messages.success(request, "Successfully ordered!")
 
         return redirect('my-order')
+    else:
+        print("NO post request...")
     return render(request, "order/checkout.html", data)
 
 
 def my_order(request):
-    try:
-        user = User.objects.get(username=request.user)
-        order_product = Order.objects.filter(
-            complete=True, user=user)
 
-        sum = 0
-        for order in order_product:
-            sum = order.product.price+sum
+    user = User.objects.get(username=request.user)
+    order_product = Order.objects.filter(
+        complete=True, user=user)
+
+    sum = 0
+    for order in order_product:
+        sum = order.product.price+sum
         data = {
             'order': order_product,
             'sum': sum,
 
         }
 
-        return render(request, "order/tracking.html", data)
-    except Exception as e:
-        # No such order found
-        return render(request, "order/my-order.html")
+    return render(request, "order/tracking.html", data)
 
 
 def add_to_cart(request, id):
@@ -94,27 +94,31 @@ def add_to_cart(request, id):
         cart_product = Order.objects.filter(
             complete=False, order_status=False, user=user)
         obj_order_false = Order.objects.filter(product=product, complete=False)
-        print("here")
         if Order.objects.filter(product=product).exists() and obj_order_false.exists():
             for cart in cart_product:
+                print(cart.quantity)
                 cart_item_qty = cart.product.quantity-cart.quantity
             print(cart_item_qty)
-            if cart.product.quantity >= 1 and cart_item_qty >= 0:
+          
+            if cart.product.quantity >= 1:
+                
                 Product.objects.filter(id=cart.product.id).update(
-                    quantity=(cart.product.quantity-cart.quantity))
+                quantity=(cart.product.quantity-int(quantity)))
+                
+
+                Order.objects.filter(id=cart.id).update(
+                quantity=(cart.quantity+int(quantity)))
                 messages.success(
-                    request, "Product is successfully added to cart!")
+                request, "Product is successfully added to cart!")
                 return redirect('cart-details')
+               
+                
             else:
                 messages.success(
                     request, f'{cart.product.name} is out of stock.')
         else:
             Order.objects.create(product=product, user=user,
                                  quantity=quantity, complete=False)
-            messages.success(
-                    request, "Product is successfully added to cart!")
-            return redirect('cart-details')
-
 
     else:
         print("NO POST METHODDDDDDDD")
@@ -127,6 +131,9 @@ def payment(request):
 
 def delete_order_item(request, id):
     object_to_delete = Order.objects.get(id=id)
+    product = Product.objects.get(id=object_to_delete.product.id) 
+    Product.objects.filter(id=object_to_delete.product.id).update(
+                    quantity=(product.quantity+object_to_delete.quantity))
     object_to_delete.delete()
-    messages.success(request, "Order deleted successfully!")
-    return redirect("my-order")
+    messages.success(request, "Cart Item deleted successfully!")
+    return redirect("cart-details")
